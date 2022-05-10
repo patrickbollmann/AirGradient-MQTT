@@ -32,6 +32,9 @@ SHT30/31 (Temperature/Humidity Sensor)
 AirGradient ag = AirGradient();
 
 const char* MQTT_BROKER = "192.168.xxx.xxx";  //your MQTT Server address
+const char* MQTT_USERNAME = NULL;  //your MQTT Server username, NULL if no password is userd
+const char* MQTT_PASSWORD = NULL;  //your MQTT users password, NULL if no password is userd
+
 
 // set sensors that you do not use to false
 boolean hasPM = true;
@@ -72,7 +75,7 @@ void reconnect() {
   while (!mqttclient.connected()) {
     Serial.print("Attempting MQTT connection...");
     // Attempt to connect
-    if (mqttclient.connect("airgradient")) {
+    if (mqttclient.connect("airgradient", MQTT_USERNAME, MQTT_PASSWORD)) {
       Serial.println("connected");
       // Once connected, publish an announcement...
       mqttclient.publish("airgradient", "hello world");
